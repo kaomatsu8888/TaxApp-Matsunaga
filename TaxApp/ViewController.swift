@@ -34,6 +34,12 @@ class ViewController: UITableViewController {
     // 追加ボタンがタップされたときのアクション
     @IBAction func addButtonTapped(_ sender: UIButton) {
         if let price = Double(taxIncludedPriceLabel.text?.replacingOccurrences(of: "¥", with: "") ?? "") {
+            
+            //追加 0円の場合は追加しない
+            if price == 0.0 {
+                       return
+                   }
+            
             let taxRate = taxSegmentedControl.selectedSegmentIndex == 0 ? 0.10 : 0.08
             prices.append((price: price, taxRate: taxRate))
             self.tableView.reloadData()
